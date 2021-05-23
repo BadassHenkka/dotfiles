@@ -15,19 +15,11 @@ setup_cronie() {
     sudo dnf install cronie
 }
 
-set_brew_paths() {
-    declare -r BREW_PATH="/home/linuxbrew/.linuxbrew/bin/brew"
-
-    echo "eval $($BREW_PATH shellenv)" >> "$HOME/.bash_exports"
-}
-
 create_symlinks_and_local_config_files() {
     ./setup/create_symbolic_links.sh
 
     ./shell/create_local_shellconfig.sh
     ./git/create_local_gitconfig.sh
-
-    set_brew_paths
 }
 
 # ----------------------------------------------------------------------
