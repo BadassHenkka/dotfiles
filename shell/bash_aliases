@@ -1,0 +1,57 @@
+#!/bin/bash
+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias cd..="cd .."
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+alias cp="cp -iv"
+#             │└─ list copied files
+#             └─ prompt before overwriting an existing file
+
+alias mkdir="mkdir -pv"
+#                   │└─ list created directories
+#                   └─ create intermediate directories
+
+alias mv="mv -iv"
+#             │└─ list moved files
+#             └─ prompt before overwriting an existing file
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+alias :q="exit"
+alias q="exit"
+alias c="clear"
+alias d="cd ~/Desktop"
+alias dow="cd ~/Downloads/"
+alias g="git"
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ll="ls -l"
+alias m="man"
+alias n="npm"
+alias p="cd ~/projects"
+alias y="yarn"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# DNF
+
+alias dnfi="sudo dnf install"
+alias dnfr="sudo dnf remove"
+alias dnfu="sudo dnf upgrade"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Empty trash.
+
+alias empty-trash="rm -rf ~/.local/share/Trash/files/*"
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Open from the terminal.
+
+alias o="xdg-open"

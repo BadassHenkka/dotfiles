@@ -1,0 +1,115 @@
+[alias]
+
+    a = add
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    br = branch
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    c = commit
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    co = checkout
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    d = diff -- . ':!*package-lock.json' ':!*yarn.lock'
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    f = fetch
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    l = log --pretty=custom
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    # Show custom text-based graphical log of the commit history.
+
+    g = log --graph --pretty=custom
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    p = push
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    s = status
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    u = commit --amend --no-edit
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    um = commit --amend
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    # Undo last commits (by default it undoes the last commit).
+
+    ulc = "!f() { \
+        number_of_commits=\"${1:-1}\"; \
+        git reset --soft \"HEAD~$number_of_commits\"; \
+    }; f"
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+[color "branch"]
+
+    current = green bold
+    local = green
+    remote = yellow
+
+[color "diff"]
+
+    frag = magenta
+    meta = yellow
+
+    new = green
+    old = red
+
+    newMoved = cyan
+    oldMoved = blue
+
+[color "status"]
+
+    added = green reverse
+    changed = yellow reverse
+    untracked = red reverse
+
+[core]
+
+    excludesFile = ~/.gitignore
+
+[diff]
+
+    # Show blocks of moved text of at least 20
+    # alphanumeric characters differently than adds/deletes.
+    #
+    # https://git-scm.com/docs/git-diff#git-diff-zebra
+
+    colorMoved = zebra
+
+[pretty]
+
+    custom = "%C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)"
+    #                     │        │            │            │             └─ author name
+    #                     │        │            │            └─ message
+    #                     │        │            └─ date (relative)
+    #                     │        └─ decorations (branch, heads or tags)
+    #                     └─ hash (abbreviated)
+
+
+[user]
+    
+    useConfigOnly = true
+
+[include]
+
+    path = ~/.gitconfig.local
+

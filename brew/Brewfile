@@ -1,0 +1,31 @@
+tap "homebrew/core"
+
+# Finding, browsing & reading files
+brew "bat"
+brew "broot"
+brew "fd"
+brew "fzf"
+brew "ranger"
+
+# GNU compiler collection
+brew "gcc"
+
+# Git & Github
+brew "gh"
+brew "grip"
+brew "lazygit"
+
+# DBs
+brew "pgcli"
+brew "postgresql"
+cask "pgadmin4"
+
+# Node packages
+brew "nvm"
+brew "yarn"
+
+# Scripts
+brew "shellcheck"
+
+# Super important stuff
+brew "cmatrix"
