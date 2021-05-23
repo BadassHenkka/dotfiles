@@ -1,11 +1,11 @@
 #!/bin/bash
 
-declare -r DOT=$HOME/dotfiles
+declare DOT=$HOME/dotfiles
 
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
 
-print_in_purple "\n Install applications \n"
+print_in_purple "\n Install applications \n\n"
 
 # TLP for laptop battery management
 
@@ -17,8 +17,8 @@ sudo dnf install xclip
 
 thinkpad_pkgs() {
 
-	sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E>
-	sudo dnf install https://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc$(rpm -E >
+	sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+	sudo dnf install https://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc$(rpm -E %fedora).noarch.rpm
 	sudo dnf install kernel-devel akmod-acpi_call akmod-tp_smapi
 
 }

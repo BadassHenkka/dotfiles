@@ -1,4 +1,7 @@
+tap "homebrew/bundle"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
+tap "homebrew/services"
 
 # Finding, browsing & reading files
 brew "bat"
@@ -7,21 +10,15 @@ brew "fd"
 brew "fzf"
 brew "ranger"
 
-# GNU compiler collection
-brew "gcc"
-
 # Git & Github
 brew "gh"
 brew "grip"
 brew "lazygit"
 
-# DBs
+# DB stuff
 brew "pgcli"
-brew "postgresql"
-cask "pgadmin4"
 
-# Node packages
-brew "nvm"
+# Node packages (nvm + node installed separately in os/dev_packages.sh)
 brew "yarn"
 
 # Scripts

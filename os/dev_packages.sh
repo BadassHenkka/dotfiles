@@ -1,31 +1,57 @@
 #!/bin/bash
 
-declare -r DOT=$HOME/dotfiles
+declare DOT=$HOME/dotfiles
 
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
 
-print_in_purple "\n Install dev packages with brew, install nvm + node and install Typescript"
+print_in_purple "\n Install dev packages: Brewfile, postgres, nvm + node, install Typescript \n\n"
 
 # BREWFILES
 
 echo "Install Brewfile"
 
+source ~/.bashrc
+
 brew bundle --file ~/dotfiles/brew/Brewfile
+
+
+# POSTGRES
+
+# Install, init db, enable and start service
+sudo dnf install postgresql-server
+sudo /usr/bin/postgresql-setup --initdb
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+
+echo "
+    Creating postgres superuser with name: $USER
+"
+echo "Type in your postgres superuser password:"
+read POSTGRESPWD
+
+sudo su - postgres bash -c "psql -c \"CREATE ROLE $USER LOGIN SUPERUSER PASSWORD '$POSTGRESPWD';\""
+sudo su - postgres bash -c "psql -c \"CREATE DATABASE $USER;\""
 
 # NODE
 
-echo "Install and use node LTS as default"
+echo "Install nvm + node and use node LTS as default"
+
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
+source ~/.bashrc
 
 nvm install --lts
 nvm use --lts
 
 # TYPESCRIPT
 
+source ~/.bashrc
+
 echo "Install typescript globally"
 
 npm install -g typescript
 
-print_in_green "\n Packages installed, nvm+node setup and Typescript installed..."
+print_in_green "\n Dev packages installed...\n\n"
 
 sleep 3

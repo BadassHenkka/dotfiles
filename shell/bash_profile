@@ -2,7 +2,7 @@
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-declare -r DOT=$HOME/dotfiles
+declare DOT=$HOME/dotfiles
 
 source_bash_files() {
 

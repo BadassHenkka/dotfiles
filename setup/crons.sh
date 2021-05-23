@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -r DOT=$HOME/dotfiles
+declare DOT=$HOME/dotfiles
 
 setup_cron_one() {
     # Give some time for log in after reboot

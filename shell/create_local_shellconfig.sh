@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -r DOT=$HOME/dotfiles
+declare DOT=$HOME/dotfiles
 
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
@@ -23,15 +23,6 @@ create_bash_local() {
 # Set PATH additions.
 PATH=\"$DOTFILES_BIN_DIR:\$PATH\"
 export PATH
-
-# fzf configs
-
-export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,Qt,node_modules,venv,.DS_Store,.Trash,.cache,.git,.mypy_cache,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__
-export FZF_DEFAULT_COMMAND='command fd --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
-export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-export FZF_ALT_C_COMMAND='command fd --type d --type l --hidden --no-ignore --exclude "{$FZF_IGNORES}" .'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_COMPLETION_TRIGGER='**'
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 " \

@@ -77,10 +77,21 @@ fedora_setup_final() {
     print_in_purple "\n • All done! Logout and log in. Activate Pop Shell in Extensions App. \n\n"
 
     echo "
-	Notes:
-	PopOS terminal preferences > Colors
-	- default color for Text is #F2F2F2
-	- default color for Background is #333333
+        Notes:
+        PopOS terminal preferences > Colors
+        - default color for Text is #F2F2F2
+        - default color for Background is #333333
+    "
+
+    echo "
+        Check that Postgres works:
+            - sudo su - postgres
+            - psql
+            - \l
+        
+        Create superuser with your username.
+
+        CREATE ROLE username LOGIN SUPERUSER PASSWORD 'your_password';
     "
 
 }
