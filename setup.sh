@@ -52,7 +52,7 @@ fedora_setup_step_two() {
 
     print_in_purple "\n • Moving on to extensions and pkg managers \n\n"
 
-    ./fedora/extensions_and_pkg_managers.sh
+    ./os/fedora/extensions_and_pkg_managers.sh
 
 }
 
