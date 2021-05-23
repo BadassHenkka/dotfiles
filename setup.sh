@@ -86,6 +86,13 @@ fedora_setup_final() {
 
     print_in_purple "\n • All done! Logout and log in. Activate Pop Shell in Extensions App. \n\n"
 
+    echo "
+	Notes:
+	PopOS terminal preferences > Colors
+	- default color for Text is #F2F2F2
+	- default color for Background is #333333
+    "
+
 }
 
 "$@"
