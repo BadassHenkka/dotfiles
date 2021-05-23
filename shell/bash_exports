@@ -70,7 +70,10 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Make Python use UTF-8 encoding for output to stdin/stdout/stderr.
 
 export PYTHONIOENCODING="UTF-8"
-eval export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
+
+# Homebrew paths
+
+export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
 export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
 export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
 export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
