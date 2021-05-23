@@ -46,7 +46,7 @@ fedora_setup_step_one() {
 
     print_in_purple "\n • Start initial Fedora setup \n\n"
 
-    ./os/fedora/init_fedora_setup
+    ./os/fedora/init_fedora_setup.sh
 
 }
 
