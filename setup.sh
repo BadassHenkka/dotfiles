@@ -15,13 +15,6 @@ setup_cronie() {
     sudo dnf install cronie
 }
 
-create_symlinks_and_local_config_files() {
-    ./setup/create_symbolic_links.sh
-
-    ./shell/create_local_shellconfig.sh
-    ./git/create_local_gitconfig.sh
-}
-
 # ----------------------------------------------------------------------
 # | Main functions for fresh OS Setup                                  |
 # ----------------------------------------------------------------------
@@ -44,13 +37,18 @@ fedora_setup_step_one() {
 
 fedora_setup_step_two() {
 
-    print_in_purple "\n • Install Homebrew and create symlinks + local config files for bash and git \n\n"
+    print_in_purple "\n • Install Homebrew \n\n"
 
     # Install Homebrew
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Create bash + git files and symlinks - the configs and homebrew will then work after second reboot
-    create_symlinks_and_local_config_files
+ 
+    print_in_purple "\n • Create symlinks + local config files for bash and git \n\n"
+ 
+    ./setup/create_symbolic_links.sh
+    ./shell/create_local_shellconfig.sh
+    ./git/create_local_gitconfig.sh
 
     print_in_purple "\n • Moving on to extensions and pkg managers \n\n"
 
