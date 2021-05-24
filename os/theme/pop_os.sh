@@ -5,62 +5,89 @@ declare DOT=$HOME/dotfiles
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+pop_shell() {
+
+	# Pop shell dnf install doesn't work yet with gnome 40
+	# so manual installation is required
+	git clone https://github.com/pop-os/shell.git $HOME/fedora/pop-shell
+	cd $HOME/fedora/pop-shell
+	make local-install
+
+}
+
+pop_shell_keyboard_shortcuts() {
+
+	sudo dnf install -y make cargo rust gtk3-devel
+	git clone https://github.com/pop-os/shell-shortcuts $HOME/fedora/pop-theme/shell-shortcuts
+	cd $HOME/fedora/pop-theme/shell-shortcuts
+	make
+	sudo make install
+	pop-shell-shortcuts
+
+}
+
+pop_GTK_theme() {
+
+	sudo dnf install -y sassc meson glib2-devel
+	git clone https://github.com/pop-os/gtk-theme $HOME/fedora/pop-theme/gtk-theme
+	cd $HOME/fedora/pop-theme/gtk-theme
+	meson build && cd build
+	ninja
+	sudo ninja install
+
+	gsettings set org.gnome.desktop.interface gtk-theme "Pop"
+
+}
+
+pop_icon_theme() {
+
+	git clone https://github.com/pop-os/icon-theme $HOME/fedora/pop-theme/icon-theme
+	cd $HOME/fedora/pop-theme/icon-theme
+	meson build
+	sudo ninja -C "build" install
+
+	gsettings set org.gnome.desktop.interface icon-theme "Pop"
+	gsettings set org.gnome.desktop.interface cursor-theme "Pop"
+
+}
+
+pop_fonts() {
+
+	sudo dnf install -y fira-code-fonts 'mozilla-fira*' 'google-roboto*'
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 print_in_purple "\n • Start setting up Pop!_OS theme...\n\n"
 
-print_in_purple "\n Setup pop-shell extension and keyboard shortcuts \n"
+print_in_purple "\n Setup pop-shell extension \n\n"
 
-# dnf install doesn't work yet with gnome 40
-# so manual installation is required
-git clone https://github.com/pop-os/shell.git /home/$USER/fedora/pop-shell
-cd /home/$USER/fedora/pop-shell
-make local-install
+pop_shell
 
-# Pop shell keyboard shortcuts
-sudo dnf install -y make cargo rust gtk3-devel
-git clone https://github.com/pop-os/shell-shortcuts /home/$USER/fedora/pop-theme/shell-shortcuts
-cd /home/$USER/fedora/pop-theme/shell-shortcuts
-make
-sudo make install
-pop-shell-shortcuts
+print_in_purple "\n Setup Pop keyboard shortcuts \n\n"
+
+pop_shell_keyboard_shortcuts
 
 print_in_purple "\n Setup Pop GTK theme\n\n"
 
-# POP GTK THEME
-sudo dnf install -y sassc meson glib2-devel
-git clone https://github.com/pop-os/gtk-theme /home/$USER/fedora/pop-theme/gtk-theme
-cd /home/$USER/fedora/pop-theme/gtk-theme
-meson build && cd build
-ninja
-sudo ninja install
+pop_GTK_theme
 
-gsettings set org.gnome.desktop.interface gtk-theme "Pop"
+print_in_purple "\n Setup Pop icon theme\n\n"
 
-print_in_purple "\n Set up Pop icon theme\n\n"
+pop_icon_theme
 
-# POP ICON THEME
-git clone https://github.com/pop-os/icon-theme /home/$USER/fedora/pop-theme/icon-theme
-cd /home/$USER/fedora/pop-theme/icon-theme
-meson build
-sudo ninja -C "build" install
+print_in_purple "\n Install Pop Fonts\n\n"
 
-gsettings set org.gnome.desktop.interface icon-theme "Pop"
-gsettings set org.gnome.desktop.interface cursor-theme "Pop"
+pop_fonts
 
-print_in_purple "\n Setup Pop Fonts\n\n"
-
-# FONTS
-
-sudo dnf install -y fira-code-fonts 'mozilla-fira*' 'google-roboto*'
-
-echo "
-	After setup process is done, logout and log in
-
-	Activate Pop Shell in Extensions App (no native window placement)
-"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 echo "
 	Setup Fonts
-	For now, go to Gnome Tweaks and change the following in Fonts
+	Go to Gnome Tweaks and change the following in Fonts
 
 	- Interface Text: Fira Sans Book 10
 	- Document Text: Roboto Slab Regular 11

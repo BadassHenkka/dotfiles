@@ -5,7 +5,17 @@ declare DOT=$HOME/dotfiles
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
 
-print_in_purple "\n Install dev packages: Brewfile, postgres, nvm + node, install Typescript \n\n"
+print_in_purple "\n Install dev packages \n\n"
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Yum dev tools
+
+print_in_purple "\n Install the Homebrew recommended dev tools with yum\n\n"
+
+sudo yum groupinstall 'Development Tools'
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # BREWFILES
 
@@ -15,6 +25,8 @@ echo "Install Brewfile"
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 brew bundle --file ~/dotfiles/brew/Brewfile
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # POSTGRES
 
@@ -33,6 +45,8 @@ read POSTGRESPWD
 sudo su - postgres bash -c "psql -c \"CREATE ROLE $USER LOGIN SUPERUSER PASSWORD '$POSTGRESPWD';\""
 sudo su - postgres bash -c "psql -c \"CREATE DATABASE $USER;\""
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # NODE
 
 echo "Install nvm + node and use node LTS as default"
@@ -44,6 +58,8 @@ source ~/.bashrc
 nvm install --lts
 nvm use --lts
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # TYPESCRIPT
 
 source ~/.bashrc
@@ -52,6 +68,10 @@ echo "Install typescript globally"
 
 npm install -g typescript
 
-print_in_green "\n Dev packages installed...\n\n"
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-sleep 3
+print_in_green "\n Dev packages installed, rebooting in 5...\n\n"
+
+sleep 5
+
+sudo reboot now
