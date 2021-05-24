@@ -5,6 +5,19 @@ declare DOT=$HOME/dotfiles
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+add_ssh_configs() {
+
+    printf "%s\n" \
+        "Host github.com" \
+        "  IdentityFile $1" \
+        "  LogLevel ERROR" >> ~/.ssh/config
+
+    print_result $? "Add SSH configs"
+
+}
+
 copy_public_ssh_key_to_clipboard() {
 
     if cmd_exists "xclip"; then

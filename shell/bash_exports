@@ -80,6 +80,10 @@ export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PAT
 export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:";
 export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}";
 
+# broot source
+
+source "$HOME/.config/broot/launcher/bash/br"
+
 # fzf configs
 
 export FZF_IGNORES=Applications,Library,Movies,Music,Pictures,Qt,node_modules,venv,.DS_Store,.Trash,.cache,.git,.mypy_cache,.npm,.pyenv,.pytest_cache,.stack,.temp,__pycache__

@@ -11,10 +11,10 @@ print_in_purple "\n Install dev packages: Brewfile, postgres, nvm + node, instal
 
 echo "Install Brewfile"
 
-source ~/.bashrc
+# Making sure that brew is found when the shell script runs
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 brew bundle --file ~/dotfiles/brew/Brewfile
-
 
 # POSTGRES
 

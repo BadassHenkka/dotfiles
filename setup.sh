@@ -43,9 +43,9 @@ fedora_setup_step_two() {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # Create bash + git files and symlinks - the configs and homebrew will then work after second reboot
- 
+
     print_in_purple "\n • Create symlinks + local config files for bash and git \n\n"
- 
+
     ./setup/create_symbolic_links.sh
     ./shell/create_local_shellconfig.sh
     ./git/create_local_gitconfig.sh
@@ -57,6 +57,7 @@ fedora_setup_step_two() {
 }
 
 fedora_setup_final() {
+
     print_in_purple "\n • Starting final Fedora setup step \n\n"
 
     # Typescript is needed for setting up the PopOS theme.
@@ -81,17 +82,6 @@ fedora_setup_final() {
         PopOS terminal preferences > Colors
         - default color for Text is #F2F2F2
         - default color for Background is #333333
-    "
-
-    echo "
-        Check that Postgres works:
-            - sudo su - postgres
-            - psql
-            - \l
-        
-        Create superuser with your username.
-
-        CREATE ROLE username LOGIN SUPERUSER PASSWORD 'your_password';
     "
 
 }
