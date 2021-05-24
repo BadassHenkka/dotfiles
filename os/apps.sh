@@ -11,10 +11,6 @@ print_in_purple "\n Install applications \n\n"
 
 sudo dnf install tlp tlp-rdw
 
-# xclip for copying stuff to clipboard in scripts
-
-sudo dnf install xclip
-
 thinkpad_pkgs() {
 
 	sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm

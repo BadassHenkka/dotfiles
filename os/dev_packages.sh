@@ -67,11 +67,3 @@ source ~/.bashrc
 echo "Install typescript globally"
 
 npm install -g typescript
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-print_in_green "\n Dev packages installed, rebooting in 5...\n\n"
-
-sleep 5
-
-sudo reboot now

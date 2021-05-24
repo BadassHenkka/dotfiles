@@ -6,13 +6,21 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # ----------------------------------------------------------------------
-# | Main functions for fresh OS Setup                                  |
+# | Functions for fresh OS Setup                                       |
 # ----------------------------------------------------------------------
 
 # Fresh setup  on a new machine starts with step one
 # The other two steps are used in setup/crons.sh
 
 fedora_setup_step_one() {
+
+    # Start setting up Fedora
+
+    print_in_purple "\n • Starting initial Fedora setup \n\n"
+
+    ./os/fedora/init_fedora_setup.sh
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     # Create bash + git files and symlinks
 
@@ -26,22 +34,9 @@ fedora_setup_step_one() {
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Install cronie and setup cronjob to be done after the first reboot
+    print_in_purple "\n • Step one done... \n\n"
 
-    print_in_purple "\n • Installing cronie for cronjobs helping in setup process...\n\n"
-
-    sudo dnf install cronie
-
-    (crontab -l 2>/dev/null; echo "@reboot sh $HOME/dotfiles/setup/crons.sh setup_cron_one") | crontab -
-
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    # Start setting up Fedora
-
-    print_in_purple "\n • Starting initial Fedora setup \n\n"
-
-    # restart after this
-    ./os/fedora/init_fedora_setup.sh
+    sleep 5
 
 }
 
@@ -51,8 +46,13 @@ fedora_setup_step_two() {
 
     ./os/fedora/extensions_and_pkg_managers.sh
 
-    # restart after this
     ./os/dev_packages.sh
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    print_in_green "\n Dev packages installed... \n\n"
+
+    sleep 5
 
 }
 
@@ -68,7 +68,7 @@ fedora_setup_final() {
 
     sudo dnf autoremove
 
-    print_in_purple "\n • All done! Logout and log in. Activate Pop Shell in Extensions App. \n\n"
+    source ~/.bashrc
 
     echo "
         Theme notes:
@@ -91,6 +91,34 @@ fedora_setup_final() {
         - Check Autostart programs
     "
 
+    print_in_purple "\n • Make the above adjustments and choose 1 to make the final pop-shell install. \n"
+
+    echo "
+        You will be logged out but it is probably better to restart.
+	    Remember to enable the Pop shell in Extensions menu.
+    "
+
+    select yn in "finish" "exit"; do
+        case $yn in
+              finish ) cd $HOME/fedora/pop-shell && make local-install; break;;
+                exit ) exit;;
+        esac
+    done
+
 }
 
-"$@"
+# ----------------------------------------------------------------------
+# | Main                                                               |
+# ----------------------------------------------------------------------
+
+main() {
+
+    fedora_setup_step_one
+
+    fedora_setup_step_two
+
+    fedora_setup_final
+
+}
+
+main

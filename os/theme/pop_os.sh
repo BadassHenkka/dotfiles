@@ -7,13 +7,14 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-pop_shell() {
+git_clone_pop_shell() {
 
 	# Pop shell dnf install doesn't work yet with gnome 40
 	# so manual installation is required
+
+	# The final install is done on the last step because it restarts the shell
+	# and thus stops my install scripts
 	git clone https://github.com/pop-os/shell.git $HOME/fedora/pop-shell
-	cd $HOME/fedora/pop-shell
-	make local-install
 
 }
 
@@ -63,9 +64,9 @@ pop_fonts() {
 
 print_in_purple "\n • Start setting up Pop!_OS theme...\n\n"
 
-print_in_purple "\n Setup pop-shell extension \n\n"
+print_in_purple "\n Clone pop-shell extension from github (it'll be installed last in the setup) \n\n"
 
-pop_shell
+git_clone_pop_shell
 
 print_in_purple "\n Setup Pop keyboard shortcuts \n\n"
 
@@ -117,7 +118,7 @@ echo "
 		Uncheck Transparend background
 
 		Some of these will get overridden when installing
-		the solarize gnome terminal package.	
+		the solarize gnome terminal package.
 "
 
 echo "Right click on the Pop profile and set as default"
