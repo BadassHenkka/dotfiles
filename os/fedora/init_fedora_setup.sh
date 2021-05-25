@@ -1,46 +1,89 @@
 #!/bin/bash
 
-# Initial fedora setup
+declare DOT=$HOME/dotfiles
+
+cd "$(dirname "${BASH_SOURCE[0]}")" \
+    && . "$DOT/setup/utils.sh"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "Type in your hostname:"
-read HOSTNAME
-hostnamectl set-hostname $HOSTNAME
+set_hostname() {
+
+    print_in_purple "\n • Setting hostname... \n\n"
+
+    print_in_yellow "\nType in your hostname:\n"
+    read HOSTNAME
+    hostnamectl set-hostname $HOSTNAME
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo 'Set DNF configs...'
-echo 'fastestmirror=1' | sudo tee -a /etc/dnf/dnf.conf
-echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
-echo 'deltarpm=true' | sudo tee -a /etc/dnf/dnf.conf
+set_dnf_configs() {
 
-cat /etc/dnf/dnf.conf
+    print_in_purple "\n • Setting DNF configs... \n\n"
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    echo 'fastestmirror=1' | sudo tee -a /etc/dnf/dnf.conf
+    echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
+    echo 'deltarpm=true' | sudo tee -a /etc/dnf/dnf.conf
 
-echo "Upgrade dnf..."
+    cat /etc/dnf/dnf.conf
 
-sudo dnf upgrade --refresh
-sudo dnf check
-sudo dnf autoremove
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "Update device firmwares..."
+upgrade_dnf() {
 
-sudo fwupdmgr get-devices
-sudo fwupdmgr refresh --force
-sudo fwupdmgr get-updates
-sudo fwupdmgr update
+    print_in_purple "\n • Upgrading... \n\n"
+
+    sudo dnf upgrade --refresh
+    sudo dnf check
+    sudo dnf autoremove
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "
-	The machine will reboot in 5s.
-	After log in, wait about 90s and the installation will continue.
-"
+update_device_firmware() {
 
-sleep 5
+    print_in_purple "\n • Updating device firmwares... \n\n"
 
-sudo reboot now
+    sudo fwupdmgr get-devices
+    sudo fwupdmgr refresh --force
+    sudo fwupdmgr get-updates
+    sudo fwupdmgr update
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+install_xclip() {
+
+    print_in_purple "\n • Installing xclip for setup process... \n\n"
+
+    sudo dnf install xclip
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# ----------------------------------------------------------------------
+# | Main                                                               |
+# ----------------------------------------------------------------------
+
+main() {
+
+    set_hostname
+
+    set_dnf_configs
+
+    upgrade_dnf
+
+    update_device_firmware
+
+    install_xclip
+
+}
+
+main

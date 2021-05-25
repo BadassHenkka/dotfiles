@@ -44,13 +44,8 @@ open_github_ssh_page() {
 
     declare -r GITHUB_SSH_URL="https://github.com/settings/ssh"
 
-    # The order of the following checks matters
-    # as on Ubuntu there is also a utility called `open`.
-
     if cmd_exists "xdg-open"; then
         xdg-open "$GITHUB_SSH_URL"
-    elif cmd_exists "open"; then
-        open "$GITHUB_SSH_URL"
     else
         print_warning "Please add the public SSH key to GitHub ($GITHUB_SSH_URL)"
     fi
@@ -85,7 +80,10 @@ test_ssh_connection() {
 
     while true; do
 
-        ssh -T git@github.com &> /dev/null
+	chmod 600 ~/.ssh/config
+	chown $USER ~/.ssh/config
+
+        ssh -T git@github.com
         [ $? -eq 1 ] && break
 
         sleep 5
