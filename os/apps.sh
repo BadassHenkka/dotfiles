@@ -23,7 +23,7 @@ print_in_purple "\n If you're setting up a Thinkpad - select 1 \n"
 
 select yn in "thinkpad" "other"; do
         case $yn in
-                thinkpad ) thinkpad_pgks; break;;
+                thinkpad ) thinkpad_pkgs; break;;
                 other ) break;;
         esac
 done

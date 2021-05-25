@@ -1,58 +1,86 @@
 #!/bin/bash
 
-# Initial fedora setup
+declare DOT=$HOME/dotfiles
+
+cd "$(dirname "${BASH_SOURCE[0]}")" \
+    && . "$DOT/setup/utils.sh"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "Type in your hostname:"
-read HOSTNAME
-hostnamectl set-hostname $HOSTNAME
+set_hostname() {
+
+    print_in_purple "\n • Setting hostname... \n\n"
+
+    print_in_yellow "\nType in your hostname:\n"
+    read HOSTNAME
+    hostnamectl set-hostname $HOSTNAME
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "
-    Set DNF configs...
-"
+set_dnf_configs() {
 
-echo 'fastestmirror=1' | sudo tee -a /etc/dnf/dnf.conf
-echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
-echo 'deltarpm=true' | sudo tee -a /etc/dnf/dnf.conf
+    print_in_purple "\n • Setting DNF configs... \n\n"
 
-cat /etc/dnf/dnf.conf
+    echo 'fastestmirror=1' | sudo tee -a /etc/dnf/dnf.conf
+    echo 'max_parallel_downloads=10' | sudo tee -a /etc/dnf/dnf.conf
+    echo 'deltarpm=true' | sudo tee -a /etc/dnf/dnf.conf
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    cat /etc/dnf/dnf.conf
 
-echo "
-    Upgrade dnf...
-"
-
-sudo dnf upgrade --refresh
-sudo dnf check
-sudo dnf autoremove
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "
-    Update device firmwares...
-"
+upgrade_dnf() {
 
-sudo fwupdmgr get-devices
-sudo fwupdmgr refresh --force
-sudo fwupdmgr get-updates
-sudo fwupdmgr update
+    print_in_purple "\n • Upgrading... \n\n"
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-echo "
-    Install xclip for copying stuff to clipboard in scripts
-"
-
-sudo dnf install xclip
+    sudo dnf upgrade --refresh
+    sudo dnf check
+    sudo dnf autoremove
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-echo "
-    Install cronie for cronjobs during setup
-"
+update_device_firmware() {
 
-sudo dnf install cronie
+    print_in_purple "\n • Updating device firmwares... \n\n"
+
+    sudo fwupdmgr get-devices
+    sudo fwupdmgr refresh --force
+    sudo fwupdmgr get-updates
+    sudo fwupdmgr update
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+install_xclip() {
+
+    print_in_purple "\n • Installing xclip for setup process... \n\n"
+
+    sudo dnf install xclip
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# ----------------------------------------------------------------------
+# | Main                                                               |
+# ----------------------------------------------------------------------
+
+main() {
+
+    set_hostname
+
+    set_dnf_configs
+
+    upgrade_dnf
+
+    update_device_firmware
+
+    install_xclip
+
+}
+
+main

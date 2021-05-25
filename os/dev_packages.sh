@@ -9,11 +9,21 @@ print_in_purple "\n Install dev packages \n\n"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# Yum dev tools
+# YUM DEV TOOLS
 
 print_in_purple "\n Install the Homebrew recommended dev tools with yum\n\n"
 
 sudo yum groupinstall 'Development Tools'
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# CRONIE
+
+echo "
+    Install cronie for cronjobs during setup
+"
+
+sudo dnf install cronie
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

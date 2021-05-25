@@ -1,16 +1,15 @@
 #!/bin/bash
 
 cd "$(dirname "${BASH_SOURCE[0]}")" \
-    && . "setup/utils.sh"
+    && . "setup/utils.sh" && . "os/settings.sh"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # ----------------------------------------------------------------------
-# | Functions for fresh OS Setup                                       |
+# | Functions for fresh Fedora OS setup for development                |
 # ----------------------------------------------------------------------
 
-# Fresh setup  on a new machine starts with step one
-# The other two steps are used in setup/crons.sh
+# BASIC DNF SETTINGS, UPGRADES AND BASH + GIT CONFIGS
 
 fedora_setup_step_one() {
 
@@ -34,15 +33,19 @@ fedora_setup_step_one() {
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    print_in_purple "\n • Step one done... \n\n"
+    print_in_green "\n • Initial setup and bash + git configs done... \n\n"
 
     sleep 5
 
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# BASIC EXTENSIONS, PACKAGE MANAGERS AND DEV PACKAGES
+
 fedora_setup_step_two() {
 
-    print_in_purple "\n • Moving on to extensions, pkg managers and dev packages \n\n"
+    print_in_purple "\n • Installing basic extensions, pkg managers and dev packages \n\n"
 
     ./os/fedora/extensions_and_pkg_managers.sh
 
@@ -55,6 +58,10 @@ fedora_setup_step_two() {
     sleep 5
 
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# POP!_OS THEME SETUP + SOLARIZED TERMINAL, APP INSTALLATION AND GENERAL TWEAKS
 
 fedora_setup_final() {
 
@@ -70,6 +77,10 @@ fedora_setup_final() {
 
     source ~/.bashrc
 
+    # final general settings tweaks
+
+    general_settings_tweaks
+
     echo "
         Theme notes:
         PopOS terminal preferences > Colors
@@ -82,20 +93,11 @@ fedora_setup_final() {
         https://extensions.gnome.org/extension/906/sound-output-device-chooser/
     "
 
-    echo "
-        GNOME TWEAKS
-        - Disable "Suspend when laptop lid is closed" in General
-        - Disable "Activities Overview Hot Corner" in Top Bar
-        - Enable "Weekday" and "Date" in "Top Bar"
-        - Enable Battery %
-        - Check Autostart programs
-    "
-
-    print_in_purple "\n • Make the above adjustments and choose 1 to make the final pop-shell install. \n"
+    print_in_green "\n • Done! Make the above adjustments and choose 1 to make the final pop-shell install. \n"
 
     echo "
-        You will be logged out but it is probably better to restart.
-	    Remember to enable the Pop shell in Extensions menu.
+        You will be logged out but it is better to restart.
+	    Remember to enable the Pop shell in the Extensions menu.
     "
 
     select yn in "finish" "exit"; do
@@ -106,6 +108,8 @@ fedora_setup_final() {
     done
 
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # ----------------------------------------------------------------------
 # | Main                                                               |
@@ -121,4 +125,12 @@ main() {
 
 }
 
-main
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Allow calling single functions in script and run main if nothing is specified
+
+"$@"
+
+if [ "$1" == "" ]; then
+    main
+fi
