@@ -14,6 +14,7 @@ set_hostname() {
     print_in_yellow "\nType in your hostname:\n"
     read HOSTNAME
     hostnamectl set-hostname $HOSTNAME
+
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -39,6 +40,7 @@ upgrade_dnf() {
     sudo dnf upgrade --refresh
     sudo dnf check
     sudo dnf autoremove
+
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -61,6 +63,7 @@ install_xclip() {
     print_in_purple "\n • Installing xclip for setup process... \n\n"
 
     sudo dnf install xclip
+
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
