@@ -100,8 +100,6 @@ install_VLC() {
 
 main() {
 
-        print_in_purple "\n • Installing applications \n\n"
-
         install_tlp_battery_management
 
         optional_thinkpad_pkg_install

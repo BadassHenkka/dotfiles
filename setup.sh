@@ -9,27 +9,33 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 # | Functions for fresh Fedora OS setup for development                |
 # ----------------------------------------------------------------------
 
-# BASIC DNF SETTINGS, UPGRADES AND BASH + GIT CONFIGS
+# BASIC DNF SETTINGS + UPGRADES AND DEVICE FIRMWARE UPDATES
 
-fedora_setup_step_one() {
-
-    # Start setting up Fedora
+init_fedora_setup() {
 
     print_in_purple "\n • Starting initial Fedora setup \n\n"
 
     ./os/fedora/init_fedora_setup.sh
 
-    # Create bash + git files and symlinks
+    print_in_green "\n • Initial setup done! \n\n"
 
-    print_in_purple "\n • Create symlinks + local config files for bash and git \n\n"
+    sleep 5
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# BASH AND GIT CONFIGS
+
+bash_and_git_configs() {
+
+    print_in_purple "\n • Create bash and git files with symlinks + local config files for each \n\n"
 
     ./setup/create_symbolic_links.sh
     ./shell/create_local_shellconfig.sh
     ./git/create_local_gitconfig.sh
 
-    ./git/set_github_ssh_key.sh
-
-    print_in_green "\n • Initial setup and bash + git configs done! \n\n"
+    print_in_green "\n • Bash and git configs done! \n\n"
 
     sleep 5
 
@@ -37,17 +43,29 @@ fedora_setup_step_one() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# BASIC EXTENSIONS, PACKAGE MANAGERS AND DEV PACKAGES
+# GITHUB SSH KEY
 
-fedora_setup_step_two() {
+create_and_set_github_ssh_key() {
 
-    print_in_purple "\n • Installing basic extensions, pkg managers and dev packages \n\n"
+    ./git/set_github_ssh_key.sh
+
+    print_in_green "\n • Github ssh key creation done! \n\n"
+
+    sleep 5
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# BASIC EXTENSIONS AND PACKAGE MANAGERS
+
+install_extensions_and_pkg_managers() {
+
+    print_in_purple "\n • Installing basic extensions and pkg managers \n\n"
 
     ./os/fedora/extensions_and_pkg_managers.sh
 
-    ./os/dev_packages.sh
-
-    print_in_green "\n Extensions, pkg managers and dev packages installed! \n\n"
+    print_in_green "\n • Finished installing basic extensions and pkg managers! \n\n"
 
     sleep 5
 
@@ -55,15 +73,64 @@ fedora_setup_step_two() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# POP!_OS THEME SETUP + SOLARIZED TERMINAL, APP INSTALLATION AND GENERAL TWEAKS
+# DEV PACKAGES
 
-fedora_setup_final() {
+install_dev_packages() {
 
-    print_in_purple "\n • Final step - installing theme and apps \n\n"
+    print_in_purple "\n • Installing dev packages \n\n"
+
+    ./os/dev_packages.sh
+
+    print_in_green "\n Dev packages installed! \n\n"
+
+    sleep 5
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# POP!_OS THEME SETUP + SOLARIZED TERMINAL
+
+setup_os_theme_and_terminal_style() {
+
+    # Note that the final step of Pop Shell installation
+    # is done on the last step of the OS full setup process
+
+    print_in_purple "\n • Setting up Pop!_OS theme and Solarized terminal \n\n"
 
     ./os/theme/main.sh
 
+    print_in_green "\n Theme and terminal setup done! \n\n"
+
+    sleep 5
+
+}
+
+pop_shell_final_install_step() {
+
+    cd $HOME/fedora/pop-shell && make local-install
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# APP INSTALLATION
+
+install_apps() {
+
+    print_in_purple "\n • Installing applications \n\n"
+
     ./os/apps.sh
+
+    print_in_green "\n Apps installed! \n\n"
+
+    sleep 5
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fedora_setup_final() {
 
     # cleanup
 
@@ -96,7 +163,7 @@ fedora_setup_final() {
 
     select yn in "finish" "exit"; do
         case $yn in
-              finish ) cd $HOME/fedora/pop-shell && make local-install; break;;
+              finish ) pop_shell_final_install_step; break;;
                 exit ) exit;;
         esac
     done
@@ -109,11 +176,23 @@ fedora_setup_final() {
 # | Main                                                               |
 # ----------------------------------------------------------------------
 
+# THE FULL SETUP PROCESS
+
 main() {
 
-    fedora_setup_step_one
+    init_fedora_setup
 
-    fedora_setup_step_two
+    bash_and_git_configs
+
+    create_and_set_github_ssh_key
+
+    install_extensions_and_pkg_managers
+
+    install_dev_packages
+
+    setup_os_theme_and_terminal_style
+
+    install_apps
 
     fedora_setup_final
 
