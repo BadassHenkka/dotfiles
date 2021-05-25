@@ -19,8 +19,6 @@ fedora_setup_step_one() {
 
     ./os/fedora/init_fedora_setup.sh
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     # Create bash + git files and symlinks
 
     print_in_purple "\n • Create symlinks + local config files for bash and git \n\n"
@@ -31,9 +29,7 @@ fedora_setup_step_one() {
 
     ./git/set_github_ssh_key.sh
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    print_in_green "\n • Initial setup and bash + git configs done... \n\n"
+    print_in_green "\n • Initial setup and bash + git configs done! \n\n"
 
     sleep 5
 
@@ -51,9 +47,7 @@ fedora_setup_step_two() {
 
     ./os/dev_packages.sh
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-    print_in_green "\n Dev packages installed... \n\n"
+    print_in_green "\n Extensions, pkg managers and dev packages installed! \n\n"
 
     sleep 5
 

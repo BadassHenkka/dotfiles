@@ -5,75 +5,121 @@ declare DOT=$HOME/dotfiles
 cd "$(dirname "${BASH_SOURCE[0]}")" \
     && . "$DOT/setup/utils.sh"
 
-print_in_purple "\n Install dev packages \n\n"
-
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# YUM DEV TOOLS
+# DEV TOOLS
 
-print_in_purple "\n Install the Homebrew recommended dev tools with yum\n\n"
+dev_tools_group() {
 
-sudo yum groupinstall 'Development Tools'
+    print_in_purple "\n • Installing the Homebrew recommended dev tools with yum\n\n"
+
+    sudo yum groupinstall 'Development Tools'
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # CRONIE
 
-echo "
-    Install cronie for cronjobs during setup
-"
+install_cronie() {
 
-sudo dnf install cronie
+    print_in_purple "\n • Installing cronie for cronjobs\n\n"
+
+    sudo dnf install cronie
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# BREWFILES
+# BREWFILE
 
-echo "Install Brewfile"
+install_brewfile() {
 
-# Making sure that brew is found when the shell script runs
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    print_in_purple "\n • Installing Brewfile from brew/Brewfile\n\n"
 
-brew bundle --file ~/dotfiles/brew/Brewfile
+    # Making sure that brew is found
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+    brew bundle --file ~/dotfiles/brew/Brewfile
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # POSTGRES
 
-# Install, init db, enable and start service
-sudo dnf install postgresql-server
-sudo /usr/bin/postgresql-setup --initdb
-sudo systemctl enable postgresql
-sudo systemctl start postgresql
+install_and_setup_postgres() {
 
-echo "
-    Creating postgres superuser with name: $USER
-"
-echo "Type in your postgres superuser password:"
-read POSTGRESPWD
+    print_in_purple "\n • Installing and setting up postgres\n\n"
 
-sudo su - postgres bash -c "psql -c \"CREATE ROLE $USER LOGIN SUPERUSER PASSWORD '$POSTGRESPWD';\""
-sudo su - postgres bash -c "psql -c \"CREATE DATABASE $USER;\""
+    # Install, init db, enable and start service
+    sudo dnf install postgresql-server
+    sudo /usr/bin/postgresql-setup --initdb
+    sudo systemctl enable postgresql
+    sudo systemctl start postgresql
+
+    print_in_yellow "\n Creating postgres superuser with name: $USER\n\n"
+
+    print_in_yellow "\nType in your postgres superuser password:\n"
+
+    read POSTGRESPWD
+
+    sudo su - postgres bash -c "psql -c \"CREATE ROLE $USER LOGIN SUPERUSER PASSWORD '$POSTGRESPWD';\""
+    sudo su - postgres bash -c "psql -c \"CREATE DATABASE $USER;\""
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# NODE
+# NVM AND NODE
 
-echo "Install nvm + node and use node LTS as default"
+nvm_and_node() {
 
-curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+    print_in_purple "\n • Installing nvm + node and use node LTS as default\n\n"
 
-source ~/.bashrc
+    curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
-nvm install --lts
-nvm use --lts
+    source ~/.bashrc
+
+    nvm install --lts
+    nvm use --lts
+
+    source ~/.bashrc
+
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # TYPESCRIPT
 
-source ~/.bashrc
+install_typescript() {
 
-echo "Install typescript globally"
+    print_in_purple "\n • Installing typescript globally\n\n"
 
-npm install -g typescript
+    npm install -g typescript
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# ----------------------------------------------------------------------
+# | Main                                                               |
+# ----------------------------------------------------------------------
+
+main() {
+
+	dev_tools_group
+
+    install_cronie
+
+    install_brewfile
+
+    install_and_setup_postgres
+
+    nvm_and_node
+
+    install_typescript
+
+}
+
+main
