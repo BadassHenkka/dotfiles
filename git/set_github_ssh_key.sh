@@ -85,7 +85,10 @@ test_ssh_connection() {
 
     while true; do
 
-        ssh -T git@github.com &> /dev/null
+	chmod 600 ~/.ssh/config
+	chown $USER ~/.ssh/config
+
+        ssh -T git@github.com
         [ $? -eq 1 ] && break
 
         sleep 5
