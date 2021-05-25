@@ -18,7 +18,7 @@ install_gnome_ext_tweaks_appind() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-add_flatpatk_store_and_update() {
+add_flatpak_store_and_update() {
 
 	print_in_purple "\n • Add flatpak store and update\n\n"
 
@@ -74,7 +74,7 @@ main() {
 
 	install_gnome_ext_tweaks_appind
 
-	add_flatpatk_store_and_update
+	add_flatpak_store_and_update
 
 	install_snap
 
