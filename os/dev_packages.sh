@@ -53,7 +53,7 @@ install_and_setup_postgres() {
     print_in_purple "\n • Installing and setting up postgres\n\n"
 
     # Install, init db, enable and start service
-    sudo dnf install postgresql-server
+    sudo dnf install postgresql-server postgresql-contrib
     sudo /usr/bin/postgresql-setup --initdb
     sudo systemctl enable postgresql
     sudo systemctl start postgresql
