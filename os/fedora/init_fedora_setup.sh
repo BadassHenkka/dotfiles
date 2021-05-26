@@ -54,6 +54,8 @@ update_device_firmware() {
     sudo fwupdmgr get-updates
     sudo fwupdmgr update
 
+    print_in_yellow "\n !!! Don't restart yet if doing full setup! \n\n"
+
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
