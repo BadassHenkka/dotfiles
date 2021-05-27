@@ -18,9 +18,6 @@ brew "lazygit"
 # DB stuff
 brew "pgcli"
 
-# Node packages (nvm + node installed separately in os/dev_packages.sh)
-brew "yarn"
-
 # Scripts
 brew "shellcheck"
 

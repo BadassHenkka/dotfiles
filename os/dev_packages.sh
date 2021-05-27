@@ -71,11 +71,11 @@ install_and_setup_postgres() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# NVM AND NODE
+# NVM, NODE AND YARN
 
-nvm_and_node() {
+nvm_node_yarn() {
 
-    print_in_purple "\n • Installing nvm + node and use node LTS as default\n\n"
+    print_in_purple "\n • Installing nvm, node and yarn. Use node LTS as default.\n\n"
 
     curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 
@@ -85,6 +85,8 @@ nvm_and_node() {
     nvm use --lts
 
     source ~/.bashrc
+
+    npm install --global yarn
 
 }
 
@@ -116,7 +118,7 @@ main() {
 
     install_and_setup_postgres
 
-    nvm_and_node
+    nvm_node_yarn
 
     install_typescript
 
