@@ -138,9 +138,11 @@ fedora_setup_final() {
 
     source ~/.bashrc
 
-    # final general settings tweaks
+    # final tweaks
 
     general_settings_tweaks
+
+    custom_workspace_keybindings
 
     echo "
         Theme notes:
