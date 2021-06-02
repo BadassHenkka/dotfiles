@@ -21,5 +21,8 @@ brew "pgcli"
 # Scripts
 brew "shellcheck"
 
+# Help
+brew "tldr"
+
 # Super important stuff
 brew "cmatrix"
