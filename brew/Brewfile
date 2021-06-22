@@ -18,6 +18,9 @@ brew "lazygit"
 # DB stuff
 brew "pgcli"
 
+# Python version manager
+brew pyenv
+
 # Scripts
 brew "shellcheck"
 
