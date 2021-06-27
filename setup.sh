@@ -144,6 +144,8 @@ fedora_setup_final() {
 
     custom_workspace_keybindings
 
+    custom_keybindings
+
     echo "
         Theme notes:
         PopOS terminal preferences > Colors

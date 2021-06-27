@@ -94,6 +94,19 @@ install_VLC() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+install_ulauncher() {
+
+        print_in_purple "\n • Installing Ulauncher \n\n"
+
+        sudo dnf install -y ulauncher
+
+        # https://github.com/Ulauncher/Ulauncher/wiki/Hotkey-In-Wayland
+        sudo dnf install -y wmctrl
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # ----------------------------------------------------------------------
 # | Main                                                               |
 # ----------------------------------------------------------------------
@@ -111,6 +124,8 @@ main() {
         install_VSCode_and_set_inotify_max_user_watches
 
         install_VLC
+
+        install_ulauncher
 
 }
 

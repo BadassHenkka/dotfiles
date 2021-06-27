@@ -62,3 +62,9 @@ custom_workspace_keybindings() {
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "['<Super><Shift>0']"
 
 }
+
+custom_keybindings() {
+
+    dconf load / < $HOME/dotfiles/os/custom-keybindings.conf
+
+}
