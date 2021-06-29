@@ -107,6 +107,18 @@ install_ulauncher() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+install_chrome() {
+
+        print_in_purple "\n • Installing Chrome \n\n"
+
+        sudo dnf config-manager --set-enabled google-chrome
+
+        sudo dnf install -y google-chrome-stable
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # ----------------------------------------------------------------------
 # | Main                                                               |
 # ----------------------------------------------------------------------
@@ -126,6 +138,8 @@ main() {
         install_VLC
 
         install_ulauncher
+
+        install_chrome
 
 }
 

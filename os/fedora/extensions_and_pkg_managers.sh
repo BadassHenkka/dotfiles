@@ -42,7 +42,7 @@ install_snap() {
 
 enable_extra_rpm_pkgs_and_non_free() {
 
-	print_in_purple "\n • Enable extra rpm pkgs and non-free options\n\n"
+	print_in_purple "\n • Enable extra rpm pkgs / non-free options / 3rd party options\n\n"
 
 	sudo rpm -Uvh http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 	sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -51,6 +51,7 @@ enable_extra_rpm_pkgs_and_non_free() {
 	sudo dnf groupupdate core
 	sudo dnf install -y rpmfusion-free-release-tainted
 	sudo dnf install -y dnf-plugins-core
+	sudo dnf install -y fedora-workstation-repositories
 
 }
 
