@@ -19,7 +19,7 @@ brew "lazygit"
 brew "pgcli"
 
 # Python version manager
-brew pyenv
+brew "pyenv"
 
 # Scripts
 brew "shellcheck"
