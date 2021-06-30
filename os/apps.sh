@@ -17,33 +17,6 @@ install_tlp_battery_management() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-thinkpad_pkgs() {
-
-        print_in_purple "\n • Installing thinkpad packages \n\n"
-
-        sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-        sudo dnf install https://repo.linrunner.de/fedora/tlp/repos/releases/tlp-release.fc$(rpm -E %fedora).noarch.rpm
-        sudo dnf install kernel-devel akmod-acpi_call akmod-tp_smapi
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-optional_thinkpad_pkg_install() {
-
-        print_in_purple "\n • If you're setting up a Thinkpad - select 1 \n"
-
-        select yn in "thinkpad" "other"; do
-                case $yn in
-                        thinkpad ) thinkpad_pkgs; break;;
-                        other ) break;;
-                esac
-        done
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 install_multimedia_codecs() {
 
         print_in_purple "\n • Installing multimedia codecs... \n\n"
@@ -126,8 +99,6 @@ install_chrome() {
 main() {
 
         install_tlp_battery_management
-
-        optional_thinkpad_pkg_install
 
         install_multimedia_codecs
 
