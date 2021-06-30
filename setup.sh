@@ -31,6 +31,8 @@ bash_and_git_configs() {
 
     print_in_purple "\n • Create bash and git files with symlinks + local config files for each \n\n"
 
+    /bin/bash -c "$(curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash)"
+
     ./setup/create_symbolic_links.sh
     ./shell/create_local_shellconfig.sh
     ./git/create_local_gitconfig.sh
