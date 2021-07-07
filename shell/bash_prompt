@@ -46,6 +46,8 @@ set_prompts() {
         orange=$(tput setaf 166)
         white=$(tput setaf 15)
         yellow=$(tput setaf 136)
+        purple=$(tput setaf 93)
+        blue=$(tput setaf 27)
 
     fi
 
@@ -64,7 +66,14 @@ set_prompts() {
     PS1+="$reset$bold"
     PS1+="$orange\u"        # Username
     PS1+="$white@"
-    PS1+="$yellow\h"        # Host
+
+    # Host
+    if [ $HOSTNAME = "toolbox" ]; then
+        PS1+="$blue[$purple\h$blue]" # style and color while in toolbox container
+    else
+        PS1+="$yellow\h" # normal color
+    fi
+
     PS1+="$white: "
     PS1+="$green\w"         # Working directory
     PS1+="\n"
