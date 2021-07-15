@@ -12,6 +12,7 @@ source_bash_files() {
         "bash_aliases"
         "bash_autocompletion"
         "bash_exports"
+        "bash_options"
         "bash_prompt"
         "bash.local"  # For local settings that should
                       # not be under version control.

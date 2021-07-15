@@ -109,14 +109,6 @@
 
     useConfigOnly = true
 
-[includeIf "gitdir:~/projects/"]
+[include]
 
     path = ~/.gitconfig.local
-
-[includeIf "gitdir:~/personal-projects/"]
-
-    path = ~/.gitconfig.personal
-
-[includeIf "gitdir:~/dotfiles/"]
-
-    path = ~/.gitconfig.personal

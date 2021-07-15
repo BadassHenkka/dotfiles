@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Readline library configuration options.
+# http://ss64.com/bash/syntax-inputrc.html
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# If there are multiple matches for completion,
+# make TAB cycle through them.
+
+TAB: menu-complete
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Searching files via partial match.
+
+# ↑
+"\e[A":history-search-backward
+# ↓
+"\e[B":history-search-forward
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Disable beeping and window flashing.
+
+set bell-style none
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Use case-insensitive TAB autocompletion.
+
+set completion-ignore-case on
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Perform partial completion on the first Tab press, and
+# only start cycling full results on the second Tab press.
+
+set menu-complete-display-prefix on
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Sets 3 to be the maximum number of characters to be the common prefix to display for completions
+
+set completion-prefix-display-length 3
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Display a list of the matching files
+
+set show-all-if-ambiguous on
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Sets readline to display possible completions using different colors to indicate their file types
+
+set colored-stats on
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# sets the completions to be listed immediately, when the completing word has more than one possible completion but no partial completion can be made
+
+set show-all-if-unmodified on
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# sets completions to be appended by characters that indicate their file types reported by the stat system call
+
+set visible-stats on

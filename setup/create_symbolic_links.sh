@@ -14,10 +14,13 @@ create_symlinks() {
         "shell/bash_aliases"
         "shell/bash_autocompletion"
         "shell/bash_exports"
+        "shell/bash_options"
         "shell/bash_profile"
         "shell/bash_prompt"
         "shell/bashrc"
-        
+        "shell/curlrc"
+        "shell/inputrc"
+
         "git/gitconfig"
         "git/gitignore"
 
