@@ -149,15 +149,12 @@ fedora_setup_final() {
     custom_keybindings
 
     echo "
-        Theme notes:
-        PopOS terminal preferences > Colors
-        - default color for Text is #F2F2F2
-        - default color for Background is #333333
-    "
-
-    echo "
-        Install input/output device chooser from here
+        Gnome extensions:
         https://extensions.gnome.org/extension/906/sound-output-device-chooser/
+        https://extensions.gnome.org/extension/4158/gnome-40-ui-improvements/
+        https://extensions.gnome.org/extension/3193/blur-my-shell/
+        https://extensions.gnome.org/extension/1145/sensory-perception/
+        https://extensions.gnome.org/extension/19/user-themes/
     "
 
     print_in_green "\n • Done! Make the above adjustments and choose 1 to make the final pop-shell install. \n"

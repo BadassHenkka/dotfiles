@@ -64,7 +64,7 @@ install_xclip() {
 
     print_in_purple "\n • Installing xclip for setup process... \n\n"
 
-    sudo dnf install xclip
+    sudo dnf install -y xclip
 
 }
 

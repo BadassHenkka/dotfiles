@@ -28,75 +28,75 @@ enable_color_support() {
 # cannot be unset because it's called every time the prompt string
 # is shown.
 
-get_git_repository_details() {
+# get_git_repository_details() {
 
-    local branchName=""
-    local tmp=""
+#     local branchName=""
+#     local tmp=""
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Check if the current directory is in a Git repository.
+#     # Check if the current directory is in a Git repository.
 
-    ! git rev-parse &>/dev/null \
-        && return
+#     ! git rev-parse &>/dev/null \
+#         && return
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Check if in `.git/` directory (some of the following
-    # checks don't make sense/won't work in the `.git` directory).
+#     # Check if in `.git/` directory (some of the following
+#     # checks don't make sense/won't work in the `.git` directory).
 
-    [ "$(git rev-parse --is-inside-git-dir)" == "true" ] \
-        && return
+#     [ "$(git rev-parse --is-inside-git-dir)" == "true" ] \
+#         && return
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Check for uncommitted changes in the index.
+#     # Check for uncommitted changes in the index.
 
-    if ! git diff --quiet --ignore-submodules --cached; then
-        tmp="$tmp+";
-    fi
+#     if ! git diff --quiet --ignore-submodules --cached; then
+#         tmp="$tmp+";
+#     fi
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Check for unstaged changes.
+#     # Check for unstaged changes.
 
-    if ! git diff-files --quiet --ignore-submodules --; then
-        tmp="$tmp!";
-    fi
+#     if ! git diff-files --quiet --ignore-submodules --; then
+#         tmp="$tmp!";
+#     fi
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Check for untracked files.
+#     # Check for untracked files.
 
-    if [ -n "$(git ls-files --others --exclude-standard)" ]; then
-        tmp="$tmp?";
-    fi
+#     if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+#         tmp="$tmp?";
+#     fi
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    # Check for stashed files.
+#     # Check for stashed files.
 
-    if git rev-parse --verify refs/stash &>/dev/null; then
-        tmp="$tmp$";
-    fi
+#     if git rev-parse --verify refs/stash &>/dev/null; then
+#         tmp="$tmp$";
+#     fi
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    [ -n "$tmp" ] \
-        && tmp=" [$tmp]"
+#     [ -n "$tmp" ] \
+#         && tmp=" [$tmp]"
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    branchName="$( printf "%s" "$( git rev-parse --abbrev-ref HEAD 2> /dev/null \
-        || git rev-parse --short HEAD 2> /dev/null \
-        || printf " (unknown)" )" | \
-        tr -d "\n" )"
+#     branchName="$( printf "%s" "$( git rev-parse --abbrev-ref HEAD 2> /dev/null \
+#         || git rev-parse --short HEAD 2> /dev/null \
+#         || printf " (unknown)" )" | \
+#         tr -d "\n" )"
 
-    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    printf "%s" "$1$branchName$tmp"
+#     printf "%s" "$1$branchName$tmp"
 
-}
+# }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -218,6 +218,9 @@ main() {
     enable_color_support
 
     starship_precmd_user_func="set_win_title"
+
+    PS2="⚡ "
+    export PS2
 
     eval "$(starship init bash)"
 

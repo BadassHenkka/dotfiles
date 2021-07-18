@@ -11,7 +11,7 @@ install_tlp_battery_management() {
 
         print_in_purple "\n • Installing tlp battery management \n\n"
 
-        sudo dnf install tlp tlp-rdw
+        sudo dnf install -y tlp tlp-rdw
 
 }
 
@@ -26,16 +26,6 @@ install_multimedia_codecs() {
         sudo dnf install -y gstreamer1-plugins-{bad-\*,good-\*,ugly-\*,base} gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel ffmpeg gstreamer-ffmpeg
         sudo dnf install -y lame\* --exclude=lame-devel
         sudo dnf group upgrade --with-optional Multimedia
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-install_git_kraken_flatpak() {
-
-        print_in_purple "\n • Installing Git Kraken \n\n"
-
-        flatpak install -y gitkraken
 
 }
 
@@ -101,8 +91,6 @@ main() {
         install_tlp_battery_management
 
         install_multimedia_codecs
-
-        install_git_kraken_flatpak
 
         install_VSCode_and_set_inotify_max_user_watches
 
