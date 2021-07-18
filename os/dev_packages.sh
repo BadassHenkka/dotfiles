@@ -25,7 +25,7 @@ install_cronie() {
 
     print_in_purple "\n • Installing cronie for cronjobs\n\n"
 
-    sudo dnf install cronie
+    sudo dnf install -y cronie
 
 }
 
@@ -46,6 +46,25 @@ install_brewfile() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# KITTY TERMINAL EMULATOR
+
+install_kitty() {
+
+        print_in_purple "\n • Installing kitty terminal emulator \n\n"
+
+        # download and setup some additional fonts for kitty & starship prompt (installed in previous step with brew)
+        sudo mkdir /usr/share/fonts/nerd-fonts
+        curl https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraMono.zip -o FiraMono.zip \
+            && sudo unzip FiraMono.zip -d /usr/share/fonts/nerd-fonts
+
+        sudo dnf install -y kitty
+
+        ln ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # POSTGRES
 
 install_and_setup_postgres() {
@@ -53,7 +72,7 @@ install_and_setup_postgres() {
     print_in_purple "\n • Installing and setting up postgres\n\n"
 
     # Install, init db, enable and start service
-    sudo dnf install postgresql-server postgresql-contrib
+    sudo dnf install -y postgresql-server postgresql-contrib
     sudo /usr/bin/postgresql-setup --initdb
     sudo systemctl enable postgresql
     sudo systemctl start postgresql
@@ -115,6 +134,8 @@ main() {
     install_cronie
 
     install_brewfile
+
+    install_kitty
 
     install_and_setup_postgres
 

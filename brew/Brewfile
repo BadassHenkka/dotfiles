@@ -3,12 +3,14 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
 
+# Terminal prompt
+brew "starship"
+
 # Finding, browsing & reading files
 brew "bat"
 brew "broot"
 brew "fd"
 brew "fzf"
-brew "ranger"
 
 # Git & Github
 brew "gh"
