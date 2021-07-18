@@ -15,3 +15,13 @@ cd "$tmpDir"
 
 # Remove installation folder
 rm -rf "$tmpDir"
+
+# Install shell colorscripts from https://gitlab.com/dwt1/shell-color-scripts
+
+mkdir ~/shell/
+git clone https://gitlab.com/dwt1/shell-color-scripts.git ~/shell/
+cd ~/shell/shell-color-scripts
+rm -rf /opt/shell-color-scripts || return 1
+sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
+sudo cp -rf colorscripts/* /opt/shell-color-scripts/colorscripts
+sudo cp colorscript.sh /usr/bin/colorscript
