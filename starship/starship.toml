@@ -2,6 +2,22 @@
 
 add_newline = true
 
+# Custom modules
+
+[custom.aiven]
+description = "Show a crab symbol, if in a Aiven project directory"
+command = "echo -n 🦀"
+when = '[[ "$PWD" =~ aiven ]]'
+shell = ["bash", "--noprofile", "--norc"]
+format = "[$output](bg:#08131a)"
+
+[custom.toolbox]
+description = "Show a toolbox symbol, if in a Toolbox container"
+command = "echo -n 🔧"
+when = '[ -f /run/.containerenv ] && [ -f /run/.toolboxenv ]'
+shell = ["bash", "--noprofile", "--norc"]
+format = "[$output](bg:#08131a)"
+
 # Bracket preset for modules
 
 [aws]
