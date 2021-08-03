@@ -59,6 +59,7 @@ install_kitty() {
 
         sudo dnf install -y kitty
 
+        mkdir ~/.config/kitty
         ln ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 }

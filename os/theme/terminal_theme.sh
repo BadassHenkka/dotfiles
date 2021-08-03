@@ -19,7 +19,7 @@ rm -rf "$tmpDir"
 # Install shell colorscripts from https://gitlab.com/dwt1/shell-color-scripts
 
 mkdir ~/shell/
-git clone https://gitlab.com/dwt1/shell-color-scripts.git ~/shell/
+cd ~/shell/ && git clone https://gitlab.com/dwt1/shell-color-scripts.git
 cd ~/shell/shell-color-scripts
 rm -rf /opt/shell-color-scripts || return 1
 sudo mkdir -p /opt/shell-color-scripts/colorscripts || return 1
