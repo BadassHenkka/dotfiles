@@ -91,26 +91,17 @@ install_dev_packages() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# POP!_OS THEME SETUP + SOLARIZED TERMINAL
+# OS THEME SETUP + TERMINAL TWEAKS
 
 setup_os_theme_and_terminal_style() {
 
-    # Note that the final step of Pop Shell installation
-    # is done on the last step of the OS full setup process
-
-    print_in_purple "\n • Setting up Pop!_OS theme and Solarized terminal \n\n"
+    print_in_purple "\n • Setting up OS theme and terminal tweaks \n\n"
 
     ./os/theme/main.sh
 
     print_in_green "\n Theme and terminal setup done! \n\n"
 
     sleep 5
-
-}
-
-pop_shell_final_install_step() {
-
-    cd $HOME/fedora/pop-shell && make local-install
 
 }
 
@@ -157,19 +148,7 @@ fedora_setup_final() {
         https://extensions.gnome.org/extension/19/user-themes/
     "
 
-    print_in_green "\n • Done! Make the above adjustments and choose 1 to make the final pop-shell install. \n"
-
-    echo "
-        You will be logged out but it is better to restart.
-	    Remember to enable the Pop shell in the Extensions menu.
-    "
-
-    select yn in "finish" "exit"; do
-        case $yn in
-              finish ) pop_shell_final_install_step; break;;
-                exit ) exit;;
-        esac
-    done
+    print_in_green "\n • All done! Install the suggested extensions and restart. \n"
 
 }
 
