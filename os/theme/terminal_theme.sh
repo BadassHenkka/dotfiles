@@ -3,18 +3,8 @@
 set -e
 
 echo "
-	Setup solarized gnome-terminal theme
+	Setup shell colorscripts
 "
-
-declare tmpDir="$(mktemp --directory)"
-
-# Install the Solarized gnome-terminal theme
-git clone https://github.com/aruhier/gnome-terminal-colors-solarized.git "$tmpDir"
-cd "$tmpDir"
-./install.sh
-
-# Remove installation folder
-rm -rf "$tmpDir"
 
 # Install shell colorscripts from https://gitlab.com/dwt1/shell-color-scripts
 
