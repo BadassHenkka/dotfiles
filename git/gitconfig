@@ -38,6 +38,15 @@
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    # Update main branch from origin.
+
+    pom = "!f() { \
+        git checkout main; \
+        git pull origin main; \
+    }; f"
+
+    # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     s = status
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

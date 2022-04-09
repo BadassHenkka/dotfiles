@@ -13,7 +13,7 @@ format = "[$output](bg:#08131a)"
 
 [custom.toolbox]
 description = "Show a toolbox symbol, if in a Toolbox container"
-command = "echo -n 🔧"
+command = "echo -n 🔧F$(grep '^VERSION_ID' /etc/os-release | sed 's/VERSION_ID=//')"
 when = '[ -f /run/.containerenv ] && [ -f /run/.toolboxenv ]'
 shell = ["bash", "--noprofile", "--norc"]
 format = "[$output](bg:#08131a)"
