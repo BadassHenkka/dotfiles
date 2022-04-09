@@ -24,7 +24,7 @@ custom_workspace_keybindings() {
 
     # First, enable a static number of workspaces
     gsettings set org.gnome.mutter dynamic-workspaces false
-    gsettings set org.gnome.desktop.wm.preferences num-workspaces 10
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
 
     # Then unbind all the GNOME default keybindings for switching between applications
     gsettings set org.gnome.shell.keybindings switch-to-application-1 []
