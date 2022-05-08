@@ -32,7 +32,7 @@ style_setup_help() {
 
 		- Interface Text: Fira Sans Book 10
 		- Document Text: Roboto Slab Regular 11
-		- Monospace Text: Fira Mono Regular 11
+		- Monospace Text: Fira Mono Regular 11 OR Comic Code 11
 		- Legacy Window Titles: Fira Sans SemiBold 10
 		- Hinting: Slight
 		- Antialiasing: Standard (greyscale)
@@ -48,7 +48,7 @@ style_setup_help() {
 
 main() {
 
-	print_in_purple "\n • Start setting up Pop!_OS theme...\n\n"
+	print_in_purple "\n • Start setting up OS theme...\n\n"
 
 	install_pop_shell
 
