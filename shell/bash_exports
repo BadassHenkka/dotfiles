@@ -111,3 +111,8 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # poetry
 
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# deno
+
+export DENO_INSTALL="/home/$USER/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
