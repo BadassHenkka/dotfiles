@@ -11,36 +11,10 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 
 dev_tools_group() {
 
-    print_in_purple "\n • Installing the Homebrew recommended dev tools with yum\n\n"
+    print_in_purple "\n • Installing dev tools and pkgs\n\n"
 
     sudo yum groupinstall 'Development Tools'
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# CRONIE
-
-install_cronie() {
-
-    print_in_purple "\n • Installing cronie for cronjobs\n\n"
-
-    sudo dnf install -y cronie
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# BREWFILE
-
-install_brewfile() {
-
-    print_in_purple "\n • Installing Brewfile from brew/Brewfile\n\n"
-
-    # Making sure that brew is found
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-    brew bundle --file ~/dotfiles/brew/Brewfile
+    sudo dnf install -y git gcc zlib-devel bzip2-devel readline-devel sqlite-devel openssl-devel
 
 }
 
@@ -48,16 +22,18 @@ install_brewfile() {
 
 # KITTY TERMINAL EMULATOR
 
-install_kitty() {
+install_terminal_and_prompt() {
 
-        print_in_purple "\n • Installing kitty terminal emulator \n\n"
+        print_in_purple "\n • Installing kitty terminal emulator and starship prompt \n\n"
 
-        # download and setup some additional fonts for kitty & starship prompt (installed in previous step with brew)
+        # download and setup some additional fonts for kitty & starship prompt
         sudo mkdir /usr/share/fonts/nerd-fonts
-        curl https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraMono.zip -o FiraMono.zip \
+        curl https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraMono.zip -o FiraMono.zip \
             && sudo unzip FiraMono.zip -d /usr/share/fonts/nerd-fonts
 
         sudo dnf install -y kitty
+        sudo dnf copr enable atim/starship
+        sudo dnf install -y starship
 
         mkdir ~/.config/kitty
         ln ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
@@ -66,9 +42,68 @@ install_kitty() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# PYENV
+
+install_pyenv() {
+
+    print_in_purple "\n • Installing pyenv\n\n"
+
+    curl https://pyenv.run | bash
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# NVM AND NODE
+
+nvm_and_node() {
+
+    print_in_purple "\n • Installing nvm and node. Use node LTS as default.\n\n"
+
+    curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+
+    source ~/.bashrc
+
+    nvm install --lts
+    nvm use --lts
+
+    source ~/.bashrc
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# TYPESCRIPT
+
+install_typescript() {
+
+    print_in_purple "\n • Installing typescript globally\n\n"
+
+    npm install -g typescript
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+install_VSCode_and_set_inotify_max_user_watches() {
+
+        print_in_purple "\n • Installing VSCode \n\n"
+
+        sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+        sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+        sudo dnf check-update
+        sudo dnf install -y code
+
+        echo 'fs.inotify.max_user_watches=524288' | sudo tee -a /etc/sysctl.conf
+        sudo sysctl -p
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 # POSTGRES
 
-install_and_setup_postgres() {
+install_and_setup_postgres_and_pgcli() {
 
     print_in_purple "\n • Installing and setting up postgres\n\n"
 
@@ -87,42 +122,23 @@ install_and_setup_postgres() {
     sudo su - postgres bash -c "psql -c \"CREATE ROLE $USER LOGIN SUPERUSER PASSWORD '$POSTGRESPWD';\""
     sudo su - postgres bash -c "psql -c \"CREATE DATABASE $USER;\""
 
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-# NVM, NODE AND YARN
-
-nvm_node_yarn() {
-
-    print_in_purple "\n • Installing nvm, node and yarn. Use node LTS as default.\n\n"
-
-    curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-
-    source ~/.bashrc
-
-    nvm install --lts
-    nvm use --lts
-
-    source ~/.bashrc
-
-    npm install --global yarn
+    sudo dnf install -y pgcli
 
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# TYPESCRIPT
+# MISC
 
-install_typescript() {
+install_misc_tools() {
 
-    print_in_purple "\n • Installing typescript globally\n\n"
+    print_in_purple "\n • Installing miscallenous useful tools\n\n"
 
-    npm install -g typescript
+    sudo dnf install -y cronie
+    sudo dnf install -y lazygit
+    sudo dnf install -y tldr
 
 }
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # ----------------------------------------------------------------------
 # | Main                                                               |
@@ -132,17 +148,19 @@ main() {
 
 	dev_tools_group
 
-    install_cronie
+    install_terminal_and_prompt
 
-    install_brewfile
-
-    install_kitty
-
-    install_and_setup_postgres
-
-    nvm_node_yarn
+    nvm_and_node
 
     install_typescript
+
+    install_VSCode_and_set_inotify_max_user_watches
+
+    install_and_setup_postgres_and_pgcli
+
+    install_pyenv
+
+    install_misc_tools
 
 }
 
