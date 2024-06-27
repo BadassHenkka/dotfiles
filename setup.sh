@@ -141,11 +141,12 @@ fedora_setup_final() {
 
     echo "
         Gnome extensions:
-        https://extensions.gnome.org/extension/906/sound-output-device-chooser/
         https://extensions.gnome.org/extension/4158/gnome-40-ui-improvements/
         https://extensions.gnome.org/extension/3193/blur-my-shell/
-        https://extensions.gnome.org/extension/1145/sensory-perception/
+        https://extensions.gnome.org/extension/841/freon/
         https://extensions.gnome.org/extension/19/user-themes/
+        https://extensions.gnome.org/extension/602/window-list/
+        https://extensions.gnome.org/extension/690/easyscreencast/
     "
 
     print_in_green "\n • All done! Install the suggested extensions and restart. \n"
