@@ -7,39 +7,6 @@ cd "$(dirname "${BASH_SOURCE[0]}")" \
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-install_gnome_ext_tweaks_appind() {
-
-	print_in_purple "\n • Installing gnome extensions, tweaks and shell-extension-appindicator\n\n"
-
-	sudo dnf install -y gnome-extensions-app gnome-tweaks
-	sudo dnf install -y gnome-shell-extension-appindicator
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-add_flatpak_store_and_update() {
-
-	print_in_purple "\n • Add flatpak store and update\n\n"
-
-	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-	flatpak update
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-install_snap() {
-
-	print_in_purple "\n • Installing snap\n\n"
-
-	sudo dnf install -y snapd
-	sudo ln -s /var/lib/snapd/snap /snap
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 enable_extra_rpm_pkgs_and_non_free() {
 
 	print_in_purple "\n • Enable extra rpm pkgs / non-free options / 3rd party options\n\n"
@@ -57,11 +24,24 @@ enable_extra_rpm_pkgs_and_non_free() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-install_homebrew() {
+add_flatpak_store_and_update() {
 
-	print_in_purple "\n • Installing Homebrew \n\n"
+	print_in_purple "\n • Add flatpak store and update\n\n"
 
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak update
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+install_gnome_tweaks() {
+
+	print_in_purple "\n • Installing some misc gnome tweaks\n\n"
+
+	sudo dnf install -y gnome-tweaks
+	sudo dnf install -y gnome-shell-extension-appindicator
+	flatpak install -y https://flathub.org/apps/com.mattjakeman.ExtensionManager.flatpakref
 
 }
 
@@ -73,15 +53,11 @@ install_homebrew() {
 
 main() {
 
-	install_gnome_ext_tweaks_appind
+	enable_extra_rpm_pkgs_and_non_free
 
 	add_flatpak_store_and_update
 
-	install_snap
-
-	enable_extra_rpm_pkgs_and_non_free
-
-	install_homebrew
+	install_gnome_tweaks
 
 }
 

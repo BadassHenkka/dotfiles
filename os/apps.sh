@@ -31,22 +31,6 @@ install_multimedia_codecs() {
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-install_VSCode_and_set_inotify_max_user_watches() {
-
-        print_in_purple "\n • Installing VSCode \n\n"
-
-        sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-        sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-        sudo dnf check-update
-        sudo dnf install -y code
-
-        echo 'fs.inotify.max_user_watches=524288' | sudo tee -a /etc/sysctl.conf
-        sudo sysctl -p
-
-}
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
 install_VLC() {
 
         print_in_purple "\n • Installing VLC \n\n"
@@ -91,8 +75,6 @@ main() {
         install_tlp_battery_management
 
         install_multimedia_codecs
-
-        install_VSCode_and_set_inotify_max_user_watches
 
         install_VLC
 

@@ -71,15 +71,6 @@ export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 export PYTHONIOENCODING="UTF-8"
 
-# Homebrew paths
-
-export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
-export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
-export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:";
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}";
-
 # broot source
 
 source "$HOME/.config/broot/launcher/bash/br"
@@ -116,3 +107,9 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 export DENO_INSTALL="/home/$USER/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+# cargo
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"

@@ -6,3 +6,9 @@
 # random colorscript when opening terminal
 
 colorscript random
+
+# source /home/henri.kestio/.config/broot/launcher/bash/br
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

@@ -16,7 +16,7 @@ main() {
 
 	select yn in "continue" "exit"; do
     		case $yn in
-        		continue ) ./terminal_theme.sh; break;;
+				continue ) ./terminal_rice.sh; break;;
 		        exit ) exit;;
     		esac
 	done
